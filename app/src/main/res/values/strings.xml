@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Nord Pool Sähkö</string>
+    <string name="tab_yesterday">Eilinen</string>
+    <string name="tab_today">Tänään</string>
+    <string name="tab_tomorrow">Huominen</string>
+    <string name="unit_cent_kwh">snt / kWh</string>
+    <string name="current_price">Nyt</string>
+    <string name="min_price">Halvin</string>
+    <string name="max_price">Kallein</string>
+    <string name="avg_price">Keskiarvo</string>
+    <string name="best_charging_time">Paras latausaika</string>
+    <string name="car_mode">Autotila</string>
+    <string name="refresh">Päivitä</string>
+    <string name="loading">Ladataan sähkönhintoja…</string>
+    <string name="tomorrow_unavailable">Huomisen hinnat julkaistaan yleensä klo 13:45–14:00 Suomen aikaa.</string>
+</resources>

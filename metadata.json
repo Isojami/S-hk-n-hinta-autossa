@@ -1,0 +1,6 @@
+{
+  "name": "Nord Pool Sähkö",
+  "description": "Reaaliaikainen sähkönhinta ja -kaavio Android Autolle ja muille Android-laitteille (Eilinen, Tänään, Huominen).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
