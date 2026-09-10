@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
       JAVA_OPTS: "-Djava.awt.headless=true"
 
     steps:
@@ -34,25 +35,41 @@ jobs:
 
       - name: Prepare build environment
         run: |
-          # 1. Restore debug.keystore from base64 if present
-          if [ -f debug.keystore.base64 ] && [ ! -f debug.keystore ]; then
-            echo "Restoring debug.keystore from base64..."
-            base64 -d debug.keystore.base64 > debug.keystore
+          # 1. Restore debug.keystore from base64 or generate a new debug keystore
+          if [ ! -f debug.keystore ]; then
+            if [ -f debug.keystore.base64 ]; then
+              echo "Restoring debug.keystore from base64..."
+              base64 -d debug.keystore.base64 > debug.keystore 2>/dev/null || true
+            fi
           fi
 
-          # 2. Ensure .env file exists for secrets plugin
-          if [ ! -f .env ] && [ -f .env.example ]; then
-            echo "Copying .env.example to .env..."
-            cp .env.example .env
-          elif [ ! -f .env ]; then
-            touch .env
+          if [ ! -f debug.keystore ] || [ ! -s debug.keystore ]; then
+            echo "Generating debug.keystore with keytool..."
+            keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          fi
+
+          # 2. Ensure .env file exists for secrets gradle plugin
+          if [ ! -f .env ]; then
+            if [ -f .env.example ]; then
+              echo "Copying .env.example to .env..."
+              cp .env.example .env
+            else
+              touch .env
+            fi
+          fi
+
+          # 3. Accept Android SDK licenses if needed
+          if [ -n "$ANDROID_HOME" ]; then
+            mkdir -p "$ANDROID_HOME/licenses" 2>/dev/null || true
+            echo -e "\n24333f8a63b6825ea9c5514f83c2829b004d1fee\nd56f5187479451eabf01fb78af6dfcb131a6481e\n84831b9409646a25e1a1202e864835688d0840b3" > "$ANDROID_HOME/licenses/android-sdk-license" 2>/dev/null || true
+            echo -e "\n89388d41e211100b445fa6e7b7e0b432430b363d\n33b6a2b649204008291b2509bc95d18d0b62c929" > "$ANDROID_HOME/licenses/android-sdk-preview-license" 2>/dev/null || true
           fi
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace -Djava.awt.headless=true
+        run: ./gradlew assembleDebug --stacktrace --no-daemon -Djava.awt.headless=true
 
       - name: Rename APK for convenience
         run: |
