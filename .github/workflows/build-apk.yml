@@ -74,13 +74,13 @@ jobs:
       - name: Rename APK for convenience
         run: |
           if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
-            cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/nordpool-sahko-debug.apk
+            mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/nordpool-sahko-debug.apk
           fi
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: nordpool-sahko-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/nordpool-sahko-debug.apk
           retention-days: 30
           if-no-files-found: error
