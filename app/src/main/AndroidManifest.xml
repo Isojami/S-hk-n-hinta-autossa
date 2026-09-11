@@ -8,6 +8,7 @@
     <!-- Android Auto / Car App Library Permissions -->
     <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" />
     <uses-permission android:name="androidx.car.app.MAP_TEMPLATES" />
+    <uses-permission android:name="android.car.permission.CAR_APP" />
 
     <uses-feature
         android:name="android.hardware.type.automotive"
@@ -40,8 +41,12 @@
             android:theme="@style/Theme.MyApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.CAR_LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.CAR_MODE" />
             </intent-filter>
         </activity>
 
