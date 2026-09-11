@@ -13,4 +13,7 @@
     <string name="refresh">Päivitä</string>
     <string name="loading">Ladataan sähkönhintoja…</string>
     <string name="tomorrow_unavailable">Huomisen hinnat julkaistaan yleensä klo 13:45–14:00 Suomen aikaa.</string>
+    <string name="android_auto_guide_title">Android Auto -ohje</string>
+    <string name="android_auto_guide_desc">Sähkönhinnat näkyvät autosi näytöllä Android Autossa. Jos sovellus ei heti näy autosi valikossa (sideload/testaus-APK), varmista puhelimestasi:</string>
+    <string name="close">Sulje</string>
 </resources>

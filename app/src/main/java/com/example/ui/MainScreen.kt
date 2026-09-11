@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.CircularProgressIndicator
@@ -43,6 +44,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,6 +59,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.R
 import com.example.data.model.DayType
+import com.example.ui.components.AndroidAutoGuideDialog
 import com.example.ui.components.CarModeDashboard
 import com.example.ui.components.HourlyPriceList
 import com.example.ui.components.PriceChartView
@@ -72,6 +77,11 @@ fun MainScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val isCarMode by viewModel.isCarMode.collectAsStateWithLifecycle()
     val inspectedPoint by viewModel.inspectedPricePoint.collectAsStateWithLifecycle()
+    var showGuideDialog by remember { mutableStateOf(false) }
+
+    if (showGuideDialog) {
+        AndroidAutoGuideDialog(onDismiss = { showGuideDialog = false })
+    }
 
     if (isCarMode) {
         CarModeDashboard(
@@ -117,6 +127,17 @@ fun MainScreen(
                     }
                 },
                 actions = {
+                    // Android Auto Help Button
+                    IconButton(
+                        onClick = { showGuideDialog = true },
+                        modifier = Modifier.testTag("car_app_guide_btn")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.HelpOutline,
+                            contentDescription = "Android Auto ohje"
+                        )
+                    }
+
                     // Car Mode switch button
                     FilledTonalButton(
                         onClick = { viewModel.toggleCarMode() },

@@ -20,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.ElectricCar
+import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -29,6 +30,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -64,6 +69,11 @@ fun CarModeDashboard(
     val currentSummary = uiState.activeSummary
     val isToday = uiState.selectedDay == DayType.TODAY
     val nowHour = ZonedDateTime.now(ZoneId.of("Europe/Helsinki")).hour
+    var showGuideDialog by remember { mutableStateOf(false) }
+
+    if (showGuideDialog) {
+        AndroidAutoGuideDialog(onDismiss = { showGuideDialog = false })
+    }
 
     Box(
         modifier = modifier
@@ -102,6 +112,21 @@ fun CarModeDashboard(
                 }
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    IconButton(
+                        onClick = { showGuideDialog = true },
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clip(CircleShape)
+                            .background(SlateSurfaceVariant)
+                            .testTag("car_mode_help_btn")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.HelpOutline,
+                            contentDescription = "Android Auto ohje",
+                            tint = Color.White
+                        )
+                    }
+
                     IconButton(
                         onClick = onRefresh,
                         modifier = Modifier
