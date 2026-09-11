@@ -76,26 +76,35 @@ fun AndroidAutoGuideDialog(
                 GuideStepCard(
                     stepNumber = "1",
                     icon = Icons.Default.Settings,
-                    title = "Android Auto: Tuntemattomat lähteet",
-                    description = "Koska asensit sovelluksen suoraan APK-tiedostosta (ei Google Playsta), Android Auto piilottaa sen oletuksena turvallisuussyistä. Avaa puhelimella Asetukset > Android Auto > napauta 'Versio' 10 kertaa aktivoidaksesi kehittäjäasetukset > paina oikeasta yläkulmasta kolmea pistettä > Kehittäjäasetukset > ruksaa 'Tuntemattomat lähteet' (Unknown sources)."
+                    title = "Android Auto: Kehittäjäasetukset",
+                    description = "Avaa puhelimen Asetukset > Android Auto > napauta alalaidassa olevaa 'Versio'-kohtaa 10 kertaa nopeasti > hyväksy kehittäjätilan aktivointi. Paina sitten oikean yläkulman kolmea pistettä (⋮) > Kehittäjäasetukset."
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 GuideStepCard(
                     stepNumber = "2",
-                    icon = Icons.Default.DirectionsCar,
-                    title = "Mukauta käynnistysohjelmaa",
-                    description = "Puhelimen Android Auto -asetuksista valitse 'Mukauta käynnistysohjelmaa' ja varmista, että 'Nord Pool Sähkö' on ruksattu päälle."
+                    icon = Icons.Default.Settings,
+                    title = "Tuntemattomat lähteet & Sovellustila",
+                    description = "Kehittäjäasetuksissa:\n1. Ruksaa 'Tuntemattomat lähteet' (Unknown sources).\n2. Etsi kohta 'Sovellustila' (Application Mode) ja valitse 'Kehittäjä' (Developer) tai 'Julkaisu' (Release)."
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 GuideStepCard(
                     stepNumber = "3",
+                    icon = Icons.Default.DirectionsCar,
+                    title = "Sulje Android Auto välimuisti",
+                    description = "Android Auto ei aina päivitä sovelluslistaa ennen kuin se käynnistetään uudelleen: Avaa puhelimen Asetukset > Sovellukset > Android Auto > valitse 'Pakota lopetus' (Force Stop) ja tyhjennä välimuisti (Clear cache). Tämän jälkeen avaa Android Auto -asetukset uudelleen ja tarkista 'Mukauta käynnistysohjelmaa'."
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                GuideStepCard(
+                    stepNumber = "4",
                     icon = Icons.Default.CheckCircle,
-                    title = "Kytke puhelin autoon tai käytä Autotilaa",
-                    description = "Kytke puhelin autoon USB-kaapelilla tai langattomasti. Lisäksi voit käyttää sovelluksen yläpalkin 'Autotila'-painiketta autonäkymän käyttöön puhelimen telineessä."
+                    title = "Kytke autoon tai käytä puhelimen Autotilaa",
+                    description = "Kun kytket puhelimen autoon, 'Nord Pool Sähkö' ilmestyy auton valikkoon. Voit myös milloin vain käyttää yläpalkin 'Autotila'-painiketta autonäytön simulointiin suoraan puhelimella."
                 )
             }
         },
